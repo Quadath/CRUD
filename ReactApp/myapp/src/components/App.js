@@ -1,10 +1,14 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import Posts from './posts/posts';
-import PostForm from './post-form/post-form';
-import PageSwitch from './page-switch/page-switch'
+import RegisterPage from './auth/register-page/register-page';
+
+// import Posts from './posts/posts';
+// import PostForm from './post-form/post-form';
+// import PageSwitch from './page-switch/page-switch'
 import './app.sass';
 
 function App() {
@@ -21,14 +25,33 @@ function App() {
 
 
   return (
-    <div className="app">
+    <Router>
       <div>
-        <PostForm/>
-        <Posts posts={posts}/>
-        <PageSwitch page={page} setPage={setPage}/>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="auth/register">Register</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Routes>
+            <Route path="/auth/register" exact element={<RegisterPage/>}/>
+          {/* <Route path="/" exact element={<Home/>}/>
+          <Route path="/about" element={<About/>}/>
+          <Route path="/users" element={<Users/>}/> */}
+          
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
+
+
 
 export default App;
