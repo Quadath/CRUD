@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import RegisterPage from './auth/register-page/register-page';
+import LoginPage from './auth/login-page/login-page';
 
 // import Posts from './posts/posts';
 // import PostForm from './post-form/post-form';
@@ -35,6 +36,9 @@ function App() {
             <li>
               <Link to="auth/register">Register</Link>
             </li>
+            <li>
+              <Link to="auth/login">Login</Link>
+            </li>
           </ul>
         </nav>
 
@@ -42,6 +46,8 @@ function App() {
             renders the first one that matches the current URL. */}
         <Routes>
             <Route path="/auth/register" exact element={<RegisterPage/>}/>
+            <Route path="/auth/login" exact element={<LoginPage/>}/>
+            
           {/* <Route path="/" exact element={<Home/>}/>
           <Route path="/about" element={<About/>}/>
           <Route path="/users" element={<Users/>}/> */}

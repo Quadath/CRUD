@@ -8,14 +8,14 @@ const cors = require('cors')
 
 
 const NoteRouter = require('./routes/note')
+const AuthRouter = require('./routes/auth')
 
 const keys = require('./keys')
-
 const app = express()
 
 const store = new MongoStore({
     collection: 'sessions',
-    uri: keys.MONGO_URI
+    uri: keys.MONGO_URL
 })
 
 app.use(express.json())
@@ -27,9 +27,14 @@ app.use(session({
 }))
 app.use(cors())
 app.use('/notes', NoteRouter)
+app.use('/auth', AuthRouter)
+
+app.get('/', (req, res) => {
+    console.log(req.user)
+})
 
 mongoose.set('strictQuery', false)
-mongoose.connect("")
+mongoose.connect(keys.MONGO_URL)
     .then(() => console.log('Connected to MongoDB'))
 
 app.listen(3000, () => console.log('App is running on port 3000'))
