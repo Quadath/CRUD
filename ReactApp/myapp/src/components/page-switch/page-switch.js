@@ -1,4 +1,3 @@
-
 import './page-switch.sass'
 
 const PageSwitch = ({page, setPage}) => {

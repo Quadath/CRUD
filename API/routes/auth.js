@@ -36,7 +36,6 @@ router.post('/register', registerValidator, async(req, res) => {
         name, username, password: hashPassword
     })
     await user.save().then((result) => {
-        console.log(result)
         res.status(200, {'Content-Type': 'application/json'})
         .end(JSON.stringify(result))
     })
@@ -47,9 +46,10 @@ const loginValidator = [
 ]
 
 router.post('/login', async(req, res) => {
+    console.log('login')
     const {username, password} = req.body
+    console.log(req.body)
     const user = await UserSchema.findOne({username})
-
     if(!user) {
         return res.status(400)
         .json({errors: [{value:username,msg:"User not found.",param:"username",location:"body"}]})
@@ -57,11 +57,14 @@ router.post('/login', async(req, res) => {
 
     const passwordMatch = bcrypt.compare(password, user.password)
     if(passwordMatch) {
-        console.log(req.session)
-        req.session.user = user;
+        req.session.user = user._id;
         req.session.save(err => {
             if (err) {throw err}
         })
+        console.log(req.session)
+    }
+    else {
+        console.log("сука")
     }
 
     res.writeHead(200, {'Content-Type': 'application/json'})

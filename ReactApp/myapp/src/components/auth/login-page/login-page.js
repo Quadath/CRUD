@@ -37,7 +37,7 @@ const LoginPage = () => (
 function SubmitForm({values, resetForm}) {
     console.log(values)
     resetForm()
-    axios.post(`${apiURL}/auth/login`, values)
+    axios.post(`${apiURL}/auth/login`, values, {withCredentials:true})
     .then((result) => {
         console.log(result)
     })

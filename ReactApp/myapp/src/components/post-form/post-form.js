@@ -10,7 +10,7 @@ function PostForm() {
             <Formik initialValues={{
                 text: ''
             }}
-            onSubmit={(values, { resetForm }) => axios.post(apiURL, values)
+            onSubmit={(values, { resetForm }) => axios.post(apiURL, values, {withCredentials: true})
             .then(res => {
                 console.log(values)
                 resetForm()
